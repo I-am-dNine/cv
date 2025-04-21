@@ -9,7 +9,6 @@ import {
 import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/icons";
 import avatarImage from "../images/d9.jpeg";  // Using relative path
 
-
 export const RESUME_DATA = {
   name: "Baron Chong",
   initials: "D9",
@@ -41,12 +40,7 @@ export const RESUME_DATA = {
         name: "LinkedIn",
         url: "https://www.linkedin.com/in/baronchong-d9/",
         icon: LinkedInIcon,
-      },
-      // {
-      //   name: "X",
-      //   url: "https://x.com/BartoszJarocki",
-      //   icon: XIcon,
-      // },
+      }
     ],
   },
   education: [
@@ -113,7 +107,7 @@ export const RESUME_DATA = {
               → Improved SOP compliance through better data validation and rule design.
             </li>
           </ul>
-
+          
           <div className="font-bold text-lg mt-6">Technical Highlights</div>
           <ul className="list-disc pl-5 mt-2 space-y-4">
             <li>
@@ -143,27 +137,33 @@ export const RESUME_DATA = {
       ),
     }
   ],
-  skills: [
-    "Java",
-    "Spring Boot",
-    "MongoDB",
-    "RESTful APIs",
-    "Redis",
-    "Jenkins",
-    "Git",
-    "Docker",
-    "React.js",
-    "Node.js",
-    "MySQL/MSSQL",
-    "HTML/CSS/JS",
-    "Phaser.js",
-    "Poi-tl（poi template language）",
-    "GitLab",
-    "Sourcetree",
-    "Postman",
-    "Figma",
-    "Linux CLI",
-  ],
+  skills: {
+    core: [
+      "Java",
+      "Spring Boot",
+      "MongoDB",
+      "RESTful APIs",
+      "Redis",
+      "Jenkins",
+      "Git",
+      "Docker"
+    ],
+    familiar: [
+      "React.js",
+      "Node.js",
+      "MySQL/MSSQL",
+      "HTML/CSS/JS",
+      "Phaser.js",
+      "Poi-tl（poi template language）"
+    ],
+    tools: [
+      "GitLab",
+      "Sourcetree",
+      "Postman",
+      "Figma",
+      "Linux CLI",
+    ]
+  },
   projects: []
   // projects: [
   //   {
