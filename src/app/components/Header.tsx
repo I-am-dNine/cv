@@ -172,7 +172,7 @@ export function Header() {
       <Avatar className="size-28" aria-hidden="true">
         <AvatarImage
           alt={`${RESUME_DATA.name}'s profile picture`}
-          src={RESUME_DATA.avatarUrl}
+          src={RESUME_DATA.avatarUrl.src}
         />
         <AvatarFallback>{RESUME_DATA.initials}</AvatarFallback>
       </Avatar>

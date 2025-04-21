@@ -7,235 +7,175 @@ import {
   ParabolLogo,
 } from "@/images/logos";
 import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/icons";
+import avatarImage from "../images/d9.jpeg";  // Using relative path
+
 
 export const RESUME_DATA = {
-  name: "Bartosz Jarocki",
-  initials: "BJ",
-  location: "Wrocław, Poland, CET",
-  locationLink: "https://www.google.com/maps/place/Wrocław",
+  name: "Baron Chong",
+  initials: "D9",
+  location: "Johor, Malaysia",
+  locationLink: "https://maps.app.goo.gl/sGpjDHroHiAuLgEq6",
   about:
-    "Detail-oriented Full Stack Engineer dedicated to building high-quality products.",
+    "Backend Developer",
   summary: (
     <>
-      Frontend-focused Full Stack Engineer specializing in high-performance
-      React applications, scalable Node.js services, and real-time collaboration
-      systems. Experienced in technical architecture design and remote team
-      leadership.
+      Backend-focused software engineer with 3+ years of experience, evolving from frontend development to building scalable backend systems. Proficient in designing RESTful APIs with Java (Jersey, Spring Boot) in microservices environments.
+      Experienced in MongoDB tuning, CI/CD pipeline planning (Jenkins), and document automation using poi-tl.
+      Contributed to core modules of ESG compliance platforms, logistics workflow systems, and chemical safety solutions.
+      Also skilled in interactive UI development from Figma designs, Phaser.js web games, and cross-functional full-stack delivery.
     </>
   ),
-  avatarUrl: "https://avatars.githubusercontent.com/u/1017620?v=4",
-  personalWebsiteUrl: "https://jarocki.me",
+  avatarUrl: avatarImage,
+  // avatarI amUrl: "https://avatars.githubusercontent.com/u/91861324?v=4",
+  //personalWebsiteUrl: "https://jarocki.me",
   contact: {
-    email: "bartosz.jarocki@hey.com",
-    tel: "+48530213401",
+    email: "honghoe1996@gmail.com",
+    tel: "(+60)102648978",
     social: [
       {
         name: "GitHub",
-        url: "https://github.com/BartoszJarocki",
+        url: "https://github.com/I-am-dNine",
         icon: GitHubIcon,
       },
       {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/bjarocki/",
+        url: "https://www.linkedin.com/in/baronchong-d9/",
         icon: LinkedInIcon,
       },
-      {
-        name: "X",
-        url: "https://x.com/BartoszJarocki",
-        icon: XIcon,
-      },
+      // {
+      //   name: "X",
+      //   url: "https://x.com/BartoszJarocki",
+      //   icon: XIcon,
+      // },
     ],
   },
   education: [
     {
-      school: "Wrocław University of Technology",
-      degree: "Bachelor's Degree in Control systems engineering and Robotics",
-      start: "2007",
-      end: "2010",
+      school: "Feng Chia University",
+      degree: "Bachelor's degree in Information Engineering and Computer Science",
+      start: "February 2017",
+      end: "July 2021",
     },
+    {
+      school: "Feng Chia University",
+      degree: "Associate's degree in Information and Network Management (Overseas Youth Technical Class)",
+      start: "March 2015",
+      end: "December 2016",
+    }
   ],
   work: [
     {
-      company: "Film.io",
-      link: "https://film.io",
-      badges: ["Remote", "React", "Next.js", "TypeScript", "Node.js"],
-      title: "Software Architect",
+      company: "SYSTEX (SoftMobile), Taichung City, Taiwan",
+      link: "https://tw.systex.com/", //https://tw.systex.com/about_affiliate/
+      badges: [""],
+      title: "Intern → Programmer → Program Analyst",
       logo: ConsultlyLogo,
-      start: "2024",
-      end: null,
+      start: "February 2021",
+      end: "July 2024",
       description: (
         <>
-          Leading technical architecture of a blockchain-based film funding
-          platform.
-          <ul className="list-inside list-disc">
+          <div className="font-bold text-lg mt-6">Key Projects & Achievements</div>
+          <ul className="list-disc pl-5 mt-2 space-y-4">
             <li>
-              Architecting migration from CRA to Next.js for improved
-              performance, SEO, and DX
+              <div className="font-semibold">Trade Logistics Platform</div>
+              Joined ongoing development to optimize document generation logic and Redis-based flow control under high-load scenarios.
+              <br />
+              → Improved system throughput and stability in high-load scenarios.
             </li>
             <li>
-              Established release process enabling faster deployments and
-              reliable rollbacks
+              <div className="font-semibold">Completion Order System (Survey Architecture)</div>
+              Led backend module development and integration based on ESG platform architecture.
+              <br />
+              → Core architecture later extended to the ESG and Occupational Safety platforms.
             </li>
             <li>
-              Implementing system-wide monitoring and security improvements
+              <div className="font-semibold">Recruitment Assessment System</div>
+              Designed backend APIs for candidate scoring and page-wise evaluation, and implemented frontend logic using React.js + Redux.
+              <br />
+              → Built scoring module including RWD components and login/authentication logic.
+            </li>
+            <li>
+              <div className="font-semibold">ESG Survey Platform</div>
+              Built backend APIs and data validation logic for ESG self-assessment forms.
+              <br />
+              → Improved questionnaire flow and backend handling, resulting in better user experience and engagement.
+            </li>
+            <li>
+              <div className="font-semibold">Occupational Safety Survey Platform</div>
+              Developed backend APIs based on existing questionnaire system architecture.
+              <br />
+              → Ensured reusability across internal compliance platforms.
+            </li>
+            <li>
+              <div className="font-semibold">Chemical Substance Management System</div>
+              Designed backend logic for SDS document handling, hazard flagging, and regulation-specific SOP validation.
+              <br />
+              → Improved SOP compliance through better data validation and rule design.
+            </li>
+          </ul>
+
+          <div className="font-bold text-lg mt-6">Technical Highlights</div>
+          <ul className="list-disc pl-5 mt-2 space-y-4">
+            <li>
+              <div className="font-semibold">MongoDB Optimization & Architecture</div>
+              Resolved replication delays by applying CAP theory and optimizing read/write consistency in distributed environments.
+            </li>
+            <li>
+              <div className="font-semibold">HTML5 Game Projects (Phaser.js)</div>
+              Enhanced gameplay responsiveness and animation smoothness in Phaser-based marketing games (e.g. darts, slot machine, claw machine).
+              <br />
+              → Improved animation and gameplay flow, enhancing user engagement.
+            </li>
+            <li>
+              <div className="font-semibold">Responsive Campaign Pages (HTML/CSS/JS)</div>
+              Developed responsive landing pages with animated UI from Figma designs, ensuring cross-browser and mobile compatibility.
+              <br />
+              → Supported mobile/tablet optimization and browser compatibility.
+            </li>
+            <li>
+              <div className="font-semibold">CI/CD Flow Design Research (Jenkins)</div>
+              Researched Jenkins CI/CD pipeline architecture and proposed automated flow, later handed over for implementation.
+              <br />
+              → Final solution was handed over for implementation by successor team members.
             </li>
           </ul>
         </>
       ),
-    },
-    {
-      company: "Parabol",
-      link: "https://parabol.co",
-      badges: [
-        "Remote",
-        "React",
-        "TypeScript",
-        "Node.js",
-        "GraphQL",
-        "Tailwind CSS",
-      ],
-      title: "Senior Full Stack Developer",
-      logo: ParabolLogo,
-      start: "2021",
-      end: "2024",
-      description: (
-        <>
-          Senior developer and squad leader for an enterprise agile meeting
-          platform.
-          <ul className="list-inside list-disc">
-            <li>
-              Built design system with Tailwind CSS, improving development speed
-              and time to market
-            </li>
-            <li>
-              Implemented engineering practices: PR automation, code review
-              guidelines, and workflows
-            </li>
-            <li>
-              Open source contributions to Relay DevTools and React i18n tooling
-            </li>
-          </ul>
-        </>
-      ),
-    },
-    {
-      company: "Clevertech",
-      link: "https://clevertech.biz",
-      badges: ["Remote", "React", "TypeScript", "Node.js", "Android", "Kotlin"],
-      title: "Lead Android Developer → Full Stack Developer",
-      logo: ClevertechLogo,
-      start: "2015",
-      end: "2021",
-      description: (
-        <>
-          Successfully transitioned from mobile to full-stack development while
-          leading distributed teams.
-          <ul className="list-inside list-disc">
-            <li>
-              Led frontend team at Evercast, building real-time platform
-              supporting 30+ users per room with HD streaming and collaboration
-              tools
-            </li>
-            <li>
-              Developed offline-first Android app for DKMS, improving donor
-              registration process
-            </li>
-            <li>
-              Led development teams across multiple successful client projects
-            </li>
-          </ul>
-        </>
-      ),
-    },
-    {
-      company: "Jojo Mobile",
-      link: "https://bsgroup.eu/",
-      badges: ["On Site", "Android", "Java", "Kotlin"],
-      title: "Android Developer → Lead Android Developer",
-      logo: JojoMobileLogo,
-      start: "2012",
-      end: "2015",
-      description: (
-        <>
-          First Android developer, grew and led a team of 15+ engineers while
-          establishing engineering culture.
-          <ul className="list-inside list-disc">
-            <li>
-              Developed apps for major Polish companies including LOT, Polskie
-              Radio, and Agora
-            </li>
-            <li>Built and mentored high-performing mobile development team</li>
-          </ul>
-        </>
-      ),
-    },
-    {
-      company: "Nokia Siemens Networks",
-      link: "https://www.nokia.com",
-      badges: ["On Site", "C/C++", "LTE", "Agile"],
-      title: "C/C++ Developer",
-      logo: NSNLogo,
-      start: "2010",
-      end: "2012",
-      description:
-        "Developed software for LTE base stations at enterprise scale, gaining strong fundamentals in software architecture, testing practices, and cross-team collaboration.",
-    },
+    }
   ],
   skills: [
-    "React/Next.js/Remix",
-    "TypeScript",
-    "Tailwind CSS",
-    "Design Systems",
-    "WebRTC",
-    "WebSockets",
+    "Java",
+    "Spring Boot",
+    "MongoDB",
+    "RESTful APIs",
+    "Redis",
+    "Jenkins",
+    "Git",
+    "Docker",
+    "React.js",
     "Node.js",
-    "GraphQL",
-    "Relay",
-    "System Architecture",
-    "Remote Team Leadership",
+    "MySQL/MSSQL",
+    "HTML/CSS/JS",
+    "Phaser.js",
+    "Poi-tl（poi template language）",
+    "GitLab",
+    "Sourcetree",
+    "Postman",
+    "Figma",
+    "Linux CLI",
   ],
-  projects: [
-    {
-      title: "Monito",
-      techStack: ["TypeScript", "Next.js", "Browser Extension", "PostgreSQL"],
-      description:
-        "Browser extension for debugging web applications. Includes taking screenshots, screen recording, E2E tests generation and generating bug reports",
-      logo: MonitoLogo,
-      link: {
-        label: "monito.dev",
-        href: "https://monito.dev/",
-      },
-    },
-    {
-      title: "Consultly",
-      techStack: [
-        "TypeScript",
-        "Next.js",
-        "Vite",
-        "GraphQL",
-        "WebRTC",
-        "Tailwind CSS",
-        "PostgreSQL",
-        "Redis",
-      ],
-      description:
-        "Platform for online consultations with real-time video meetings and scheduling",
-      logo: ConsultlyLogo,
-      link: {
-        label: "consultly.com",
-        href: "https://consultly.com/",
-      },
-    },
-    {
-      title: "Minimalist CV",
-      techStack: ["TypeScript", "Next.js", "Tailwind CSS"],
-      description:
-        "An open source minimalist, print friendly CV template with a focus on readability and clean design. >9k stars on GitHub",
-      logo: MonitoLogo,
-      link: {
-        label: "Minimalist CV",
-        href: "https://github.com/BartoszJarocki/cv",
-      },
-    },
-  ],
+  projects: []
+  // projects: [
+  //   {
+  //     title: "Monito",
+  //     techStack: ["TypeScript", "Next.js", "Browser Extension", "PostgreSQL"],
+  //     description:
+  //       "Browser extension for debugging web applications. Includes taking screenshots, screen recording, E2E tests generation and generating bug reports",
+  //     logo: MonitoLogo,
+  //     link: {
+  //       label: "monito.dev",
+  //       href: "https://monito.dev/",
+  //     },
+  //   },
+  // ],
 } as const;
