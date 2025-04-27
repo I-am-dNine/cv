@@ -2,6 +2,7 @@ import { GlobeIcon, MailIcon, PhoneIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { RESUME_DATA } from "@/data/resume-data";
+import React from "react";
 
 interface LocationLinkProps {
   location: typeof RESUME_DATA.location;
@@ -97,44 +98,88 @@ interface PrintContactProps {
 }
 
 function PrintContact({ contact, personalWebsiteUrl }: PrintContactProps) {
-  return (
-    <div
-      className="hidden gap-x-2 font-mono text-sm text-foreground/80 print:flex print:text-[12px]"
-      aria-label="Print contact information"
-    >
-      {personalWebsiteUrl && (
-        <>
-          <a
-            className="underline hover:text-foreground/70"
-            href={personalWebsiteUrl}
-          >
-            {new URL(personalWebsiteUrl).hostname}
-          </a>
-          <span aria-hidden="true">/</span>
-        </>
-      )}
-      {contact.email && (
-        <>
-          <a
-            className="underline hover:text-foreground/70"
-            href={`mailto:${contact.email}`}
-          >
-            {contact.email}
-          </a>
-          <span aria-hidden="true">/</span>
-        </>
-      )}
-      {contact.tel && (
+  // 收集所有要展示的信息
+  const baseItems: React.ReactNode[] = [];
+  const socialItems: React.ReactNode[] = [];
+
+  if (personalWebsiteUrl) {
+    baseItems.push(
+      <a
+        className="underline hover:text-foreground/70"
+        href={personalWebsiteUrl}
+        key="website"
+      >
+        {new URL(personalWebsiteUrl).hostname}
+      </a>
+    );
+  }
+  if (contact.email) {
+    baseItems.push(
+      <a
+        className="underline hover:text-foreground/70"
+        href={`mailto:${contact.email}`}
+        key="email"
+      >
+        {contact.email}
+      </a>
+    );
+  }
+  if (contact.tel) {
+    baseItems.push(
+      <a
+        className="underline hover:text-foreground/70"
+        href={`tel:${contact.tel}`}
+        key="tel"
+      >
+        {contact.tel}
+      </a>
+    );
+  }
+  if (contact.social?.length) {
+    contact.social.forEach((social) => {
+      socialItems.push(
         <a
           className="underline hover:text-foreground/70"
-          href={`tel:${contact.tel}`}
+          href={social.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          key={social.name}
         >
-          {contact.tel}
+          <span className="print:hidden">{social.name}</span>
+          <span className="hidden print:inline whitespace-nowrap">{social.name}: {social.url}</span>
         </a>
+      );
+    });
+  }
+
+  return (
+    <div
+      className="hidden gap-x-2 font-mono text-sm text-foreground/80 print:block print:text-[12px]"
+      aria-label="Print contact information"
+    >
+      {/* 基本信息一行 */}
+      {baseItems.map((item, idx) => (
+        <React.Fragment key={idx}>
+          {item}
+          {idx < baseItems.length - 1 && <span aria-hidden="true"> / </span>}
+        </React.Fragment>
+      ))}
+      {/* 分隔符（仅当有 baseItems 和 socialItems 时，且仅屏幕显示） */}
+      {baseItems.length > 0 && socialItems.length > 0 && <span aria-hidden="true" className="print:hidden"> / </span>}
+      {/* 社交信息，屏幕时 inline，打印时每项单独一行 */}
+      {socialItems.length > 0 && (
+        <div className="inline print:block print:w-full">
+          {socialItems.map((item, idx) => (
+            <span key={idx} className="inline print:block">
+              {item}
+            </span>
+          ))}
+        </div>
       )}
     </div>
   );
 }
+
 
 /**
  * Header component displaying personal information and contact details
