@@ -18,17 +18,18 @@ export const RESUME_DATA = {
     "Backend Developer",
   summary: (
     <>
-      Backend-focused software engineer with 3+ years of experience, evolving from frontend development to building scalable backend systems. Proficient in designing RESTful APIs with Java (Jersey, Spring Boot) in microservices environments.
+      Backend-focused software engineer with 3+ years of hands-on experience in Taiwan, evolving from frontend development to building scalable backend systems. Proficient in designing RESTful APIs with Java (Jersey, Spring Boot) in microservices environments.
       Experienced in MongoDB tuning, CI/CD pipeline planning (Jenkins), and document automation using poi-tl.
       Contributed to core modules of ESG compliance platforms, logistics workflow systems, and chemical safety solutions.
       Also skilled in interactive UI development from Figma designs, Phaser.js web games, and cross-functional full-stack delivery.
+      Originally from Malaysia and currently seeking new opportunities in Singapore, where I aim to contribute my cross-border experience and backend expertise to impactful systems.
     </>
   ),
   avatarUrl: avatarImage,
   // avatarI amUrl: "https://avatars.githubusercontent.com/u/91861324?v=4",
   //personalWebsiteUrl: "https://jarocki.me",
   contact: {
-    email: "honghoe1996@gmail.com",
+    email: "baronchong23@gmail.com",//"honghoe1996@gmail.com",
     tel: "(+60)102648978",
     social: [
       {
