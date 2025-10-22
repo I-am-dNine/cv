@@ -78,3 +78,14 @@
 .print-force-new-page {
   page-break-before: always;
 }
+@media print {
+  @page {
+    size: A4;
+    margin: 0.5in;
+  }
+  
+  html,
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "PingFang SC", "Hiragino Sans GB", "Hiragino Kaku Gothic ProN", "Microsoft JhengHei", "Microsoft YaHei", "Noto Sans CJK TC", "Noto Sans CJK SC", "Heiti TC", "Heiti SC", Arial, Helvetica, sans-serif !important;
+  }
+}
