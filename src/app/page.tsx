@@ -5,6 +5,7 @@ import { WorkExperience } from "./components/WorkExperience";
 import { Projects } from "./components/Projects";
 import { Education } from "./components/Education";
 import { Summary } from "./components/Summary";
+import { CareerObjective } from "./components/CareerObjective";
 import { Skills } from "./components/Skills";
 import { Header } from "./components/Header";
 
@@ -66,12 +67,14 @@ export default function ResumePage() {
       </div>
 
       <section
-        className="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-4"
+        className="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-4 print:max-w-none"
         aria-label="Resume Content"
       >
         <Header />
 
         <div className="space-y-8 print:space-y-4">
+          <CareerObjective careerObjective={RESUME_DATA.careerObjective} />
+
           <Summary summary={RESUME_DATA.summary} />
 
           <Skills skills={RESUME_DATA.skills} />
