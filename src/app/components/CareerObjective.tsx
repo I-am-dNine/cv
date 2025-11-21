@@ -14,7 +14,7 @@ export function CareerObjective({ careerObjective, className }: CareerObjectiveP
   return (
     <Section className={className}>
       <h2 className="text-xl font-bold" id="career-objective-section">
-        求職目標
+      Career Objective
       </h2>
       <div
         className="text-pretty font-mono text-sm text-foreground/80 print:text-[12px]"
