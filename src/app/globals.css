@@ -33,6 +33,32 @@
     --ring: 224 71.4% 4.1%;
 
     --radius: 0.5rem;
+
+    /* Typography Scale */
+    --text-name: 20pt;
+    --text-name-lh: 1.1;
+
+    --text-position: 12pt;
+    --text-position-lh: 1.3;
+
+    --text-heading: 11.5pt;
+    --text-heading-lh: 1.3;
+
+    --text-body: 10.8pt;
+    --text-body-lh: 1.5;
+
+    --text-contact: 10pt;
+    --text-contact-lh: 1.3;
+
+    /* Spacing */
+    --section-gap: 18pt;
+    --header-to-summary: 14pt;
+    --summary-to-skills: 16pt;
+    --skills-to-work: 18pt;
+    --between-work-items: 10pt;
+    --between-projects: 10pt;
+    --content-max-width: 580px;
+    /* Optimized for 60-70 characters per line */
   }
 
   .dark {
@@ -70,22 +96,154 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
+/* Typography Utilities */
+.cv-name {
+  font-size: var(--text-name);
+  line-height: var(--text-name-lh);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  /* +2% for visual prominence */
+  margin-bottom: 6pt;
+}
+
+.cv-position {
+  font-size: var(--text-position);
+  line-height: var(--text-position-lh);
+  margin-bottom: 10pt;
+}
+
+.cv-section-title {
+  font-size: var(--text-heading);
+  line-height: var(--text-heading-lh);
+  font-weight: 600;
+  margin-bottom: 8pt;
+  margin-top: var(--section-gap);
+}
+
+.cv-section-title:first-child {
+  margin-top: 0;
+}
+
+.cv-body {
+  font-size: var(--text-body);
+  line-height: var(--text-body-lh);
+}
+
+.cv-contact {
+  font-size: var(--text-contact);
+  line-height: var(--text-contact-lh);
+  color: #444;
+}
+
+.cv-location {
+  font-size: 10pt;
+  line-height: 1.3;
+  color: #444;
+}
+
+.cv-contact-gray {
+  color: #444;
+}
+
+.cv-section-title-secondary {
+  font-size: 11pt;
+  line-height: var(--text-heading-lh);
+  font-weight: 600;
+  margin-bottom: 6pt;
+  margin-top: 18pt;
+}
+
+.cv-highlight-secondary {
+  color: #555;
+}
+
+.cv-result-text {
+  color: #555;
+}
+
+.cv-skills-compact {
+  line-height: 1.3;
+}
+
+.cv-technical-highlights h3 {
+  font-size: 10.5pt;
+  color: #555;
+  font-weight: 600;
+}
+
+.cv-education-subtle {
+  font-weight: normal;
+  line-height: 1.35;
+}
+
 .print-force-new-page {
   page-break-before: always;
 }
+
 @media print {
   @page {
     size: A4;
-    margin: 0.5in;
+    margin: 1.8cm 2.2cm;
+
+    /* Suppress browser headers/footers - removes date, URL, page numbers */
+    @top-left {
+      content: none;
+    }
+
+    @top-center {
+      content: none;
+    }
+
+    @top-right {
+      content: none;
+    }
+
+    @bottom-left {
+      content: none;
+    }
+
+    @bottom-center {
+      content: none;
+    }
+
+    @bottom-right {
+      content: none;
+    }
   }
-  
+
   html,
   body {
     font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "PingFang SC", "Hiragino Sans GB", "Hiragino Kaku Gothic ProN", "Microsoft JhengHei", "Microsoft YaHei", "Noto Sans CJK TC", "Noto Sans CJK SC", "Heiti TC", "Heiti SC", Arial, Helvetica, sans-serif !important;
+  }
+
+  .cv-name {
+    font-size: var(--text-name);
+    line-height: var(--text-name-lh);
+  }
+
+  .cv-position {
+    font-size: var(--text-position);
+    line-height: var(--text-position-lh);
+  }
+
+  .cv-section-title {
+    font-size: var(--text-heading);
+    line-height: var(--text-heading-lh);
+  }
+
+  .cv-body {
+    font-size: var(--text-body);
+    line-height: var(--text-body-lh);
+  }
+
+  .cv-contact {
+    font-size: var(--text-contact);
+    line-height: var(--text-contact-lh);
   }
 }

@@ -21,7 +21,7 @@ interface SkillsListProps {
 }
 
 /**
- * Renders a list of skills as badges
+ * Renders a list of skills with middot separators
  */
 function SkillsList({ skills, className, title, isEditing, onUpdate }: SkillsListProps) {
   if (isEditing && onUpdate) {
@@ -39,21 +39,24 @@ function SkillsList({ skills, className, title, isEditing, onUpdate }: SkillsLis
     );
   }
 
+  // Split skills into two lines intelligently (max 6 per line)
+  const midpoint = Math.ceil(skills.length / 2);
+  const line1 = skills.slice(0, Math.min(6, midpoint));
+  const line2 = skills.slice(line1.length);
+
   return (
-    <div className="space-y-2 print:space-y-1">
-      {title && <h3 className="text-sm font-medium text-muted-foreground print:text-xs">{title}</h3>}
-      <ul
-        className={cn("flex list-none flex-wrap gap-1 p-0 print:gap-[2px]", className)}
-        aria-label="List of skills"
-      >
-        {skills.map((skill) => (
-          <li key={skill}>
-            <Badge className="print:text-[10px] print:py-0" aria-label={`Skill: ${skill}`}>
-              {skill}
-            </Badge>
-          </li>
-        ))}
-      </ul>
+    <div className="space-y-1.5 print:space-y-1">
+      {title && <h3 className="text-sm font-semibold text-muted-foreground print:text-xs">{title}</h3>}
+      <div className="cv-skills-compact text-foreground/80">
+        <p className="cv-body">
+          {line1.join(' · ')}
+        </p>
+        {line2.length > 0 && (
+          <p className="cv-body">
+            {line2.join(' · ')}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
@@ -76,11 +79,11 @@ export function Skills({ skills, className, isEditing = false, onUpdate = () => 
   };
 
   return (
-    <Section className={className}>
-      <h2 className="text-xl font-bold print:text-base print:mb-1" id="skills-section">
+    <Section className={`${className} mb-[16pt]`}>
+      <h2 className="cv-section-title" id="skills-section">
         Skills
       </h2>
-      <div className="space-y-4 print:space-y-2">
+      <div className="space-y-3 print:space-y-2">
         <SkillsList
           skills={skills.core}
           title="Core"

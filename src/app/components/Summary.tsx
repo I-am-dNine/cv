@@ -16,11 +16,11 @@ interface AboutProps {
 export function Summary({ summary, className, isEditing = false, onUpdate = () => { } }: AboutProps) {
   return (
     <Section className={className}>
-      <h2 className="text-xl font-bold" id="about-section">
+      <h2 className="cv-section-title" id="about-section">
         Summary
       </h2>
       <div
-        className="text-pretty font-mono text-sm text-foreground/80 print:text-[12px]"
+        className="cv-body text-pretty text-foreground/80"
         aria-labelledby="about-section"
       >
         <EditableField

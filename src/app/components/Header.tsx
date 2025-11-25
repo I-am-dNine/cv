@@ -42,7 +42,7 @@ function LocationLink({ location, locationLink, isEditing, onUpdate }: LocationL
   }
 
   return (
-    <p className="max-w-md items-center text-pretty font-mono text-xs text-foreground">
+    <p className="cv-location cv-contact-gray max-w-md items-center text-pretty">
       <a
         className="inline-flex gap-x-1.5 align-baseline leading-none hover:underline"
         href={locationLink}
@@ -209,8 +209,7 @@ function PrintContact({ contact, personalWebsiteUrl }: PrintContactProps) {
           rel="noopener noreferrer"
           key={social.name}
         >
-          <span className="print:hidden">{social.name}</span>
-          <span className="hidden print:inline whitespace-nowrap">{social.name}: {social.url}</span>
+          {social.name}
         </a>
       );
     });
@@ -218,28 +217,22 @@ function PrintContact({ contact, personalWebsiteUrl }: PrintContactProps) {
 
   return (
     <div
-      className="hidden gap-x-2 font-mono text-sm text-foreground/80 print:block print:text-[12px]"
+      className="cv-contact cv-contact-gray hidden print:block"
       aria-label="Print contact information"
     >
-      {/* 基本信息一行 */}
       {baseItems.map((item, idx) => (
         <React.Fragment key={idx}>
           {item}
-          {idx < baseItems.length - 1 && <span aria-hidden="true"> / </span>}
+          {idx < baseItems.length - 1 && <span aria-hidden="true"> | </span>}
         </React.Fragment>
       ))}
-      {/* 分隔符（仅当有 baseItems 和 socialItems 时，且仅屏幕显示） */}
-      {baseItems.length > 0 && socialItems.length > 0 && <span aria-hidden="true" className="print:hidden"> / </span>}
-      {/* 社交信息，屏幕时 inline，打印时每项单独一行 */}
-      {socialItems.length > 0 && (
-        <div className="inline print:block print:w-full">
-          {socialItems.map((item, idx) => (
-            <span key={idx} className="inline print:block">
-              {item}
-            </span>
-          ))}
-        </div>
-      )}
+      {baseItems.length > 0 && socialItems.length > 0 && <span aria-hidden="true"> | </span>}
+      {socialItems.map((item, idx) => (
+        <React.Fragment key={idx}>
+          {item}
+          {idx < socialItems.length - 1 && <span aria-hidden="true"> | </span>}
+        </React.Fragment>
+      ))}
     </div>
   );
 }
@@ -256,8 +249,8 @@ interface HeaderProps {
 export function Header({ resumeData = RESUME_DATA, isEditing = false, onUpdate = () => { } }: HeaderProps) {
   return (
     <header className="flex items-center justify-between">
-      <div className="flex-1 space-y-1.5">
-        <h1 className="text-2xl font-bold" id="resume-name">
+      <div className="flex-1 space-y-1.5 mb-[14pt]">
+        <h1 className="cv-name" id="resume-name">
           <EditableField
             value={resumeData.name}
             onSave={(val) => onUpdate("name", val)}
@@ -265,7 +258,7 @@ export function Header({ resumeData = RESUME_DATA, isEditing = false, onUpdate =
           />
         </h1>
         <div
-          className="max-w-md text-pretty font-mono text-sm text-foreground/80 print:text-[12px]"
+          className="cv-position max-w-md text-pretty"
           aria-labelledby="resume-name"
         >
           <EditableField

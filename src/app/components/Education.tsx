@@ -40,7 +40,7 @@ function EducationPeriod({ start, end, isEditing, onUpdate }: EducationPeriodPro
       className="text-sm tabular-nums text-gray-500"
       aria-label={`Period: ${start} to ${end}`}
     >
-      {start} - {end}
+      {start} – {end}
     </div>
   );
 }
@@ -62,7 +62,7 @@ function EducationItem({ education, isEditing, onUpdate }: EducationItemProps) {
       <CardHeader>
         <div className="flex items-center justify-between gap-x-2 text-base">
           <h3
-            className="font-semibold leading-none"
+            className="cv-education-subtle leading-none text-[10.5pt]"
             id={`education-${school.toLowerCase().replace(/\s+/g, "-")}`}
           >
             <EditableField
@@ -80,7 +80,7 @@ function EducationItem({ education, isEditing, onUpdate }: EducationItemProps) {
         </div>
       </CardHeader>
       <CardContent
-        className="mt-2 text-foreground/80 print:text-[12px]"
+        className="cv-education-subtle mt-2 text-[10.3pt] text-foreground/80 print:text-[11px]"
         aria-labelledby={`education-${school
           .toLowerCase()
           .replace(/\s+/g, "-")}`}
@@ -114,11 +114,11 @@ export function Education({ education, isEditing = false, onUpdate = () => { } }
 
   return (
     <Section>
-      <h2 className="text-xl font-bold" id="education-section">
+      <h2 className="cv-section-title" id="education-section">
         Education
       </h2>
       <div
-        className="space-y-4"
+        className="space-y-[10pt]"
         role="feed"
         aria-labelledby="education-section"
       >

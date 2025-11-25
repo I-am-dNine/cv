@@ -195,11 +195,11 @@ export function Projects({ projects, isEditing = false, onUpdate = () => { } }: 
 
   return (
     <Section className="print-force-new-page scroll-mb-16 print:space-y-4 print:pt-12">
-      <h2 className="text-xl font-bold" id="side-projects">
+      <h2 className="cv-section-title" id="side-projects">
         Side projects
       </h2>
       <div
-        className="-mx-3 grid grid-cols-1 gap-3 print:grid-cols-3 print:gap-2 md:grid-cols-2 lg:grid-cols-3"
+        className="-mx-3 grid grid-cols-1 gap-4 print:grid-cols-3 print:gap-[10pt] md:grid-cols-2 lg:grid-cols-3"
         role="feed"
         aria-labelledby="side-projects"
       >

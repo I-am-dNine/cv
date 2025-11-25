@@ -78,7 +78,7 @@ function WorkPeriod({ start, end, isEditing, onUpdate }: WorkPeriodProps) {
       className="text-sm tabular-nums text-gray-500"
       aria-label={`Employment period: ${start} to ${end ?? "Present"}`}
     >
-      {start} - {end ?? "Present"}
+      {start} – {end ?? "Present"}
     </div>
   );
 }
@@ -175,7 +175,7 @@ function WorkExperienceItem({ work, isEditing, onUpdate }: WorkExperienceItemPro
       </CardHeader>
 
       <CardContent>
-        <div className="mt-2 text-xs text-foreground/80 print:mt-1 print:text-[10px] text-pretty">
+        <div className="cv-technical-highlights mt-2 text-xs text-foreground/80 print:mt-1 print:text-[10px] text-pretty">
           <EditableField
             value={description}
             onSave={(val) => onUpdate("description", val)}
@@ -214,10 +214,10 @@ export function WorkExperience({ work, isEditing = false, onUpdate = () => { } }
 
   return (
     <Section>
-      <h2 className="text-xl font-bold" id="work-experience">
+      <h2 className="cv-section-title" id="work-experience">
         Work Experience
       </h2>
-      <div className="space-y-4 print:space-y-0" role="feed" aria-labelledby="work-experience">
+      <div className="space-y-[10pt] print:space-y-[10pt]" role="feed" aria-labelledby="work-experience">
         {work.map((item, index) => (
           <article key={`${item.company}-${item.start}`} role="article">
             <WorkExperienceItem

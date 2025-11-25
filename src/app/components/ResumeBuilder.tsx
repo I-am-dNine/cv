@@ -135,7 +135,8 @@ export const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
             </div>
 
             <section
-                className="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-4 print:max-w-none"
+                className="mx-auto w-full space-y-8 bg-white print:space-y-4 print:max-w-none"
+                style={{ maxWidth: 'var(--content-max-width)' }}
                 aria-label="Resume Content"
             >
                 <Header
