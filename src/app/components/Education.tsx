@@ -1,18 +1,40 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Section } from "@/components/ui/section";
 import { RESUME_DATA } from "@/data/resume-data";
+import { EditableField } from "@/components/ui/editable-field";
 
 type Education = (typeof RESUME_DATA)["education"][number];
 
 interface EducationPeriodProps {
   start: Education["start"];
   end: Education["end"];
+  isEditing: boolean;
+  onUpdate: (field: string, value: string) => void;
 }
 
 /**
  * Displays the education period in a consistent format
  */
-function EducationPeriod({ start, end }: EducationPeriodProps) {
+function EducationPeriod({ start, end, isEditing, onUpdate }: EducationPeriodProps) {
+  if (isEditing) {
+    return (
+      <div className="flex gap-2 text-sm tabular-nums text-gray-500">
+        <EditableField
+          value={start}
+          onSave={(val) => onUpdate("start", val)}
+          isEditing={isEditing}
+          className="w-20"
+        />
+        <span>-</span>
+        <EditableField
+          value={end}
+          onSave={(val) => onUpdate("end", val)}
+          isEditing={isEditing}
+          className="w-20"
+        />
+      </div>
+    );
+  }
   return (
     <div
       className="text-sm tabular-nums text-gray-500"
@@ -25,12 +47,14 @@ function EducationPeriod({ start, end }: EducationPeriodProps) {
 
 interface EducationItemProps {
   education: Education;
+  isEditing: boolean;
+  onUpdate: (field: string, value: string) => void;
 }
 
 /**
  * Individual education card component
  */
-function EducationItem({ education }: EducationItemProps) {
+function EducationItem({ education, isEditing, onUpdate }: EducationItemProps) {
   const { school, start, end, degree } = education;
 
   return (
@@ -41,9 +65,18 @@ function EducationItem({ education }: EducationItemProps) {
             className="font-semibold leading-none"
             id={`education-${school.toLowerCase().replace(/\s+/g, "-")}`}
           >
-            {school}
+            <EditableField
+              value={school}
+              onSave={(val) => onUpdate("school", val)}
+              isEditing={isEditing}
+            />
           </h3>
-          <EducationPeriod start={start} end={end} />
+          <EducationPeriod
+            start={start}
+            end={end}
+            isEditing={isEditing}
+            onUpdate={onUpdate}
+          />
         </div>
       </CardHeader>
       <CardContent
@@ -52,7 +85,11 @@ function EducationItem({ education }: EducationItemProps) {
           .toLowerCase()
           .replace(/\s+/g, "-")}`}
       >
-        {degree}
+        <EditableField
+          value={degree}
+          onSave={(val) => onUpdate("degree", val)}
+          isEditing={isEditing}
+        />
       </CardContent>
     </Card>
   );
@@ -60,13 +97,21 @@ function EducationItem({ education }: EducationItemProps) {
 
 interface EducationListProps {
   education: readonly Education[];
+  isEditing?: boolean;
+  onUpdate?: (value: any) => void;
 }
 
 /**
  * Main education section component
  * Renders a list of education experiences
  */
-export function Education({ education }: EducationListProps) {
+export function Education({ education, isEditing = false, onUpdate = () => { } }: EducationListProps) {
+  const handleUpdate = (index: number, field: string, value: any) => {
+    const newEducation = [...education];
+    newEducation[index] = { ...newEducation[index], [field]: value };
+    onUpdate(newEducation);
+  };
+
   return (
     <Section>
       <h2 className="text-xl font-bold" id="education-section">
@@ -77,9 +122,13 @@ export function Education({ education }: EducationListProps) {
         role="feed"
         aria-labelledby="education-section"
       >
-        {education.map((item) => (
+        {education.map((item, index) => (
           <article key={item.school} role="article">
-            <EducationItem education={item} />
+            <EducationItem
+              education={item}
+              isEditing={isEditing}
+              onUpdate={(field, value) => handleUpdate(index, field, value)}
+            />
           </article>
         ))}
       </div>

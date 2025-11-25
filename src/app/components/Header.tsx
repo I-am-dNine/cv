@@ -3,13 +3,44 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { RESUME_DATA } from "@/data/resume-data";
 import React from "react";
+import { EditableField } from "@/components/ui/editable-field";
+import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/icons";
+
+const iconMap: Record<string, React.ElementType> = {
+  GitHubIcon,
+  LinkedInIcon,
+  XIcon,
+};
 
 interface LocationLinkProps {
-  location: typeof RESUME_DATA.location;
-  locationLink: typeof RESUME_DATA.locationLink;
+  location: string;
+  locationLink: string;
+  isEditing: boolean;
+  onUpdate: (field: string, value: string) => void;
 }
 
-function LocationLink({ location, locationLink }: LocationLinkProps) {
+function LocationLink({ location, locationLink, isEditing, onUpdate }: LocationLinkProps) {
+  if (isEditing) {
+    return (
+      <div className="flex flex-col gap-2">
+        <EditableField
+          value={location}
+          onSave={(val) => onUpdate("location", val)}
+          isEditing={isEditing}
+          label="Location"
+          className="text-xs"
+        />
+        <EditableField
+          value={locationLink}
+          onSave={(val) => onUpdate("locationLink", val)}
+          isEditing={isEditing}
+          label="Location Link"
+          className="text-xs"
+        />
+      </div>
+    );
+  }
+
   return (
     <p className="max-w-md items-center text-pretty font-mono text-xs text-foreground">
       <a
@@ -50,22 +81,52 @@ function SocialButton({ href, icon: Icon, label }: SocialButtonProps) {
 interface ContactButtonsProps {
   contact: typeof RESUME_DATA.contact;
   personalWebsiteUrl?: string;
+  isEditing: boolean;
+  onUpdate: (path: string, value: any) => void;
 }
 
-function ContactButtons({ contact, personalWebsiteUrl }: ContactButtonsProps) {
+function ContactButtons({ contact, personalWebsiteUrl, isEditing, onUpdate }: ContactButtonsProps) {
+  if (isEditing) {
+    return (
+      <div className="flex flex-col gap-2 mt-2">
+        {/* <EditableField
+          value={personalWebsiteUrl || ""}
+          onSave={(val) => onUpdate("personalWebsiteUrl", val)}
+          isEditing={isEditing}
+          label="Website URL"
+          className="text-xs"
+        /> */}
+        <EditableField
+          value={contact.email}
+          onSave={(val) => onUpdate("contact.email", val)}
+          isEditing={isEditing}
+          label="Email"
+          className="text-xs"
+        />
+        <EditableField
+          value={contact.tel}
+          onSave={(val) => onUpdate("contact.tel", val)}
+          isEditing={isEditing}
+          label="Phone"
+          className="text-xs"
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className="flex gap-x-1 pt-1 font-mono text-sm text-foreground/80 print:hidden"
       role="list"
       aria-label="Contact links"
     >
-      {personalWebsiteUrl && (
+      {/* {personalWebsiteUrl && (
         <SocialButton
           href={personalWebsiteUrl}
           icon={GlobeIcon}
           label="Personal website"
         />
-      )}
+      )} */}
       {contact.email && (
         <SocialButton
           href={`mailto:${contact.email}`}
@@ -80,14 +141,17 @@ function ContactButtons({ contact, personalWebsiteUrl }: ContactButtonsProps) {
           label="Phone"
         />
       )}
-      {contact.social.map((social) => (
-        <SocialButton
-          key={social.name}
-          href={social.url}
-          icon={social.icon}
-          label={social.name}
-        />
-      ))}
+      {contact.social.map((social) => {
+        const Icon = iconMap[social.icon] || GlobeIcon;
+        return (
+          <SocialButton
+            key={social.name}
+            href={social.url}
+            icon={Icon}
+            label={social.name}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -102,17 +166,17 @@ function PrintContact({ contact, personalWebsiteUrl }: PrintContactProps) {
   const baseItems: React.ReactNode[] = [];
   const socialItems: React.ReactNode[] = [];
 
-  if (personalWebsiteUrl) {
-    baseItems.push(
-      <a
-        className="underline hover:text-foreground/70"
-        href={personalWebsiteUrl}
-        key="website"
-      >
-        {new URL(personalWebsiteUrl).hostname}
-      </a>
-    );
-  }
+  // if (personalWebsiteUrl) {
+  //   baseItems.push(
+  //     <a
+  //       className="underline hover:text-foreground/70"
+  //       href={personalWebsiteUrl}
+  //       key="website"
+  //     >
+  //       {new URL(personalWebsiteUrl).hostname}
+  //     </a>
+  //   );
+  // }
   if (contact.email) {
     baseItems.push(
       <a
@@ -180,46 +244,64 @@ function PrintContact({ contact, personalWebsiteUrl }: PrintContactProps) {
   );
 }
 
+interface HeaderProps {
+  resumeData?: typeof RESUME_DATA;
+  isEditing?: boolean;
+  onUpdate?: (path: string, value: any) => void;
+}
 
 /**
  * Header component displaying personal information and contact details
  */
-export function Header() {
+export function Header({ resumeData = RESUME_DATA, isEditing = false, onUpdate = () => { } }: HeaderProps) {
   return (
     <header className="flex items-center justify-between">
       <div className="flex-1 space-y-1.5">
         <h1 className="text-2xl font-bold" id="resume-name">
-          {RESUME_DATA.name}
+          <EditableField
+            value={resumeData.name}
+            onSave={(val) => onUpdate("name", val)}
+            isEditing={isEditing}
+          />
         </h1>
-        <p
+        <div
           className="max-w-md text-pretty font-mono text-sm text-foreground/80 print:text-[12px]"
           aria-labelledby="resume-name"
         >
-          {RESUME_DATA.about}
-        </p>
+          <EditableField
+            value={resumeData.about}
+            onSave={(val) => onUpdate("about", val)}
+            isEditing={isEditing}
+            multiline
+          />
+        </div>
 
         <LocationLink
-          location={RESUME_DATA.location}
-          locationLink={RESUME_DATA.locationLink}
+          location={resumeData.location}
+          locationLink={resumeData.locationLink}
+          isEditing={isEditing}
+          onUpdate={onUpdate}
         />
 
         <ContactButtons
-          contact={RESUME_DATA.contact}
-          personalWebsiteUrl={RESUME_DATA.personalWebsiteUrl}
+          contact={resumeData.contact}
+          personalWebsiteUrl={resumeData.personalWebsiteUrl}
+          isEditing={isEditing}
+          onUpdate={onUpdate}
         />
 
         <PrintContact
-          contact={RESUME_DATA.contact}
-          personalWebsiteUrl={RESUME_DATA.personalWebsiteUrl}
+          contact={resumeData.contact}
+          personalWebsiteUrl={resumeData.personalWebsiteUrl}
         />
       </div>
 
       {/* <Avatar className="size-28" aria-hidden="true">
         <AvatarImage
-          alt={`${RESUME_DATA.name}'s profile picture`}
-          src={RESUME_DATA.avatarUrl.src}
+          alt={`${resumeData.name}'s profile picture`}
+          src={resumeData.avatarUrl.src}
         />
-        <AvatarFallback>{RESUME_DATA.initials}</AvatarFallback>
+        <AvatarFallback>{resumeData.initials}</AvatarFallback>
       </Avatar> */}
     </header>
   );

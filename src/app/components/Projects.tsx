@@ -8,18 +8,41 @@ import {
 } from "../../components/ui/card";
 import { Section } from "../../components/ui/section";
 import { RESUME_DATA } from "../../data/resume-data";
+import { EditableField } from "@/components/ui/editable-field";
 
 type ProjectTags = readonly string[];
 
 interface ProjectLinkProps {
   title: string;
   link?: string;
+  isEditing: boolean;
+  onUpdate: (field: string, value: string) => void;
 }
 
 /**
  * Renders project title with optional link and status indicator
  */
-function ProjectLink({ title, link }: ProjectLinkProps) {
+function ProjectLink({ title, link, isEditing, onUpdate }: ProjectLinkProps) {
+  if (isEditing) {
+    return (
+      <div className="flex flex-col gap-1">
+        <EditableField
+          value={title}
+          onSave={(val) => onUpdate("title", val)}
+          isEditing={isEditing}
+          className="font-semibold"
+        />
+        <EditableField
+          value={link || ""}
+          onSave={(val) => onUpdate("link", val)}
+          isEditing={isEditing}
+          className="text-xs font-normal"
+          label="Link"
+        />
+      </div>
+    );
+  }
+
   if (!link) {
     return <span>{title}</span>;
   }
@@ -83,12 +106,14 @@ interface ProjectCardProps {
   description: string;
   tags: ProjectTags;
   link?: string;
+  isEditing: boolean;
+  onUpdate: (field: string, value: any) => void;
 }
 
 /**
  * Card component displaying project information
  */
-function ProjectCard({ title, description, tags, link }: ProjectCardProps) {
+function ProjectCard({ title, description, tags, link, isEditing, onUpdate }: ProjectCardProps) {
   return (
     <Card
       className="flex h-full flex-col overflow-hidden border p-3"
@@ -97,13 +122,23 @@ function ProjectCard({ title, description, tags, link }: ProjectCardProps) {
       <CardHeader>
         <div className="space-y-1">
           <CardTitle className="text-base">
-            <ProjectLink title={title} link={link} />
+            <ProjectLink
+              title={title}
+              link={link}
+              isEditing={isEditing}
+              onUpdate={onUpdate}
+            />
           </CardTitle>
           <CardDescription
             className="text-pretty font-mono text-xs print:text-[10px]"
             aria-label="Project description"
           >
-            {description}
+            <EditableField
+              value={description}
+              onSave={(val) => onUpdate("description", val)}
+              isEditing={isEditing}
+              multiline
+            />
           </CardDescription>
         </div>
       </CardHeader>
@@ -115,17 +150,49 @@ function ProjectCard({ title, description, tags, link }: ProjectCardProps) {
 }
 
 interface ProjectsProps {
-  projects: (typeof RESUME_DATA)["projects"];
+  projects: readonly {
+    title: string;
+    techStack: readonly string[];
+    description: string;
+    link?: {
+      label: string;
+      href: string;
+    };
+  }[];
+  isEditing?: boolean;
+  onUpdate?: (value: any) => void;
 }
 
 /**
  * Section component displaying all side projects
  */
-export function Projects({ projects }: ProjectsProps) {
+export function Projects({ projects, isEditing = false, onUpdate = () => { } }: ProjectsProps) {
   if (!projects || projects.length === 0) {
     return null;
   }
-  
+
+  const handleUpdate = (index: number, field: string, value: any) => {
+    const newProjects = [...projects];
+    if (field === "link") {
+      // Handle link object update if needed, but for now assuming string or simple object structure
+      // The original data has link as { label, href } or string?
+      // Looking at resume-data.tsx, projects have link: { label, href }
+      // But ProjectCard expects link as string.
+      // Let's check how it was passed.
+      // In original Projects component: link={"link" in project ? project.link.href : undefined}
+      // So we are updating the href.
+      const currentLink = newProjects[index].link;
+      if (currentLink && typeof currentLink === 'object') {
+        newProjects[index] = { ...newProjects[index], link: { ...currentLink, href: value } };
+      }
+    } else {
+      newProjects[index] = { ...newProjects[index], [field]: value };
+    }
+    onUpdate(newProjects);
+  };
+
+  if (!projects || projects.length === 0) return null;
+
   return (
     <Section className="print-force-new-page scroll-mb-16 print:space-y-4 print:pt-12">
       <h2 className="text-xl font-bold" id="side-projects">
@@ -136,7 +203,7 @@ export function Projects({ projects }: ProjectsProps) {
         role="feed"
         aria-labelledby="side-projects"
       >
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <article
             key={project.title}
             className="h-full" // Added h-full here
@@ -145,7 +212,9 @@ export function Projects({ projects }: ProjectsProps) {
               title={project.title}
               description={project.description}
               tags={project.techStack}
-              link={"link" in project ? project.link.href : undefined}
+              link={project.link ? project.link.href : undefined}
+              isEditing={isEditing}
+              onUpdate={(field, value) => handleUpdate(index, field, value)}
             />
           </article>
         ))}
